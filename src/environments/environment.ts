@@ -3,7 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+    production: false,
+    apiUrl: 'http://localhost:8080/Kwetter-1.0-SNAPSHOT/api/',
+    pusher: {
+        key: 'dc2704ace5aa76084ef3',
+        cluster: 'eu',
+    }
 };
 
 /*

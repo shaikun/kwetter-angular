@@ -1,0 +1,11 @@
+<div>
+    <div *ngFor="let kweet of kweets">
+        <div class="kweet">
+            <div>{{kweet.user.username}}</div>
+            <div>{{kweet.text}}</div>
+            <div>{{kweet.date | utcDate | date:'HH:mm - dd MMMM yyyy'}}</div>
+        </div>
+    </div>
+    kweet-list works!
+</div>
+
