@@ -1,7 +1,7 @@
 export class User {
 
     public id: number;
-    public password: number;
+    public password: string;
     public email: string;
     public username: string;
     public location: string;

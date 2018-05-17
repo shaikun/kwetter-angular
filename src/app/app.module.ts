@@ -9,10 +9,12 @@ import { RegisterComponent } from './core/auth/register/register.component';
 import { AppRoutingModule } from './app-routing.module';
 import { UtcDatePipe } from './core/pipes/utc-date';
 import { KweetService } from './core/kweet/kweet.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { UserService } from './core/user/user.service';
 import { PusherService } from './core/services/pusher/pusher.service';
+import { AuthService } from './core/auth/auth.service';
+import { Interceptor } from './interceptor';
 
 @NgModule({
     declarations: [
@@ -29,7 +31,12 @@ import { PusherService } from './core/services/pusher/pusher.service';
         HttpClientModule,
         FormsModule,
     ],
-    providers: [KweetService, UserService, PusherService],
+    providers: [KweetService, UserService, PusherService, AuthService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: Interceptor,
+            multi: true
+        }],
     bootstrap: [AppComponent]
 })
 export class AppModule {

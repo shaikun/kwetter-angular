@@ -14,7 +14,7 @@ export class PusherService {
             cluster: environment.pusher.cluster,
             encrypted: true
         });
-        this.userEmail = 'admin'; // Get user saved in localStorage by JWT: JSON.parse(localStorage.getItem('currentUser'));
+        this.userEmail = localStorage.getItem('currentUser');
         console.log('subscribed to ' + this.userEmail);
         this.channel = this.pusher.subscribe(this.userEmail);
     }

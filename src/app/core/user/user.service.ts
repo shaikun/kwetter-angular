@@ -10,4 +10,8 @@ export class UserService extends ResourceService {
      * @type {string}
      */
     public endpoint = 'users';
+
+    public getByEmail(email: string) {
+        return this.get(null, '/byEmail/' + email);
+    }
 }

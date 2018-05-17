@@ -4,6 +4,7 @@ import { KweetService } from '../../kweet.service';
 import { UserService } from '../../../user/user.service';
 import { PusherService } from '../../../services/pusher/pusher.service';
 import { Kweet } from '../../kweet';
+import { User } from '../../../user/user';
 
 @Component({
     selector: 'app-kweet-list',
@@ -12,6 +13,8 @@ import { Kweet } from '../../kweet';
 })
 export class KweetListComponent implements OnInit {
 
+    public user: User;
+    public kweetText: string;
     public kweets;
     private kweet: Kweet;
 
@@ -36,13 +39,32 @@ export class KweetListComponent implements OnInit {
             });
         });
 
-        this.getKweets();
+        this.userService.getByEmail(localStorage.getItem('currentUser')).subscribe((res) => {
+            this.user = res['data'];
+            console.log(this.user);
+            this.getKweets();
+        });
     }
 
     getKweets() {
-        this.userService.allCustom(1, '/kweets').subscribe((res) => {
+        this.userService.allCustom(this.user.id, '/kweets').subscribe((res) => {
             this.kweets = res['data'];
             console.log(this.kweets);
+        });
+    }
+
+    createKweet() {
+        this.kweetService.create({user_id: this.user.id, text: this.kweetText}).subscribe((data) => {
+
+            this.kweet      = new Kweet();
+            this.kweet.text = data['text'];
+            this.kweet.date = data['date'];
+            this.userService.one(data['user']['id']).subscribe((res) => {
+                console.log(res);
+                this.kweet.user = res['data'];
+                this.kweets.unshift(this.kweet);
+            });
+            console.log(data);
         });
     }
 

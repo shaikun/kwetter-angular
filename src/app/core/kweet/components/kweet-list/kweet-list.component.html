@@ -7,5 +7,14 @@
         </div>
     </div>
     kweet-list works!
+    <div class="form-group">
+        <input type="text" [(ngModel)]="kweetText"
+               class="form-control">
+    </div>
+    <div class="form-buttons">
+        <button class="button button-primary"
+                (click)="createKweet()">send
+        </button>
+    </div>
 </div>
 
