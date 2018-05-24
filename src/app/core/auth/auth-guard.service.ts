@@ -1,9 +1,10 @@
-import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
+
     // constructor(private authService: AuthService, private router: Router) {
     // }
 
@@ -11,7 +12,11 @@ export class AuthGuard implements CanActivate {
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-        return this.checkLogin();
+        if (!this.checkLogin()) {
+            this.router.navigate(['login']);
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -20,7 +25,8 @@ export class AuthGuard implements CanActivate {
      * @returns bool
      */
     checkLogin(): (Observable<boolean> | boolean) {
-        return true;
+        const token = localStorage.getItem('token');
+        return (token !== null);
         // // If we already authenticated don't do it again,
         // // You can comment the next 3 lines to fetch data from DS on every page navigation
         // if (this.authService.isAuthenticated) {

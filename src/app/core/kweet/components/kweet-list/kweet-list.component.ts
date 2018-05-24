@@ -34,13 +34,13 @@ export class KweetListComponent implements OnInit {
             this.kweet.date = data['date'];
             this.userService.one(data['user_id']).subscribe((res) => {
                 console.log(res);
-                this.kweet.user = res['data'];
+                this.kweet.user = res;
                 this.kweets.unshift(this.kweet);
             });
         });
 
         this.userService.getByEmail(localStorage.getItem('currentUser')).subscribe((res) => {
-            this.user = res['data'];
+            this.user = res;
             console.log(this.user);
             this.getKweets();
         });
@@ -48,7 +48,7 @@ export class KweetListComponent implements OnInit {
 
     getKweets() {
         this.userService.allCustom(this.user.id, '/kweets').subscribe((res) => {
-            this.kweets = res['data'];
+            this.kweets = res;
             console.log(this.kweets);
         });
     }
@@ -60,8 +60,7 @@ export class KweetListComponent implements OnInit {
             this.kweet.text = data['text'];
             this.kweet.date = data['date'];
             this.userService.one(data['user']['id']).subscribe((res) => {
-                console.log(res);
-                this.kweet.user = res['data'];
+                this.kweet.user = res;
                 this.kweets.unshift(this.kweet);
             });
             console.log(data);

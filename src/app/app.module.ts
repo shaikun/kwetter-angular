@@ -15,6 +15,7 @@ import { UserService } from './core/user/user.service';
 import { PusherService } from './core/services/pusher/pusher.service';
 import { AuthService } from './core/auth/auth.service';
 import { Interceptor } from './interceptor';
+import { AuthGuard } from './core/auth/auth-guard.service';
 
 @NgModule({
     declarations: [
@@ -31,7 +32,7 @@ import { Interceptor } from './interceptor';
         HttpClientModule,
         FormsModule,
     ],
-    providers: [KweetService, UserService, PusherService, AuthService,
+    providers: [KweetService, UserService, PusherService, AuthService, AuthGuard,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: Interceptor,
